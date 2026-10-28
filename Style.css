@@ -4,23 +4,35 @@
   box-sizing: border-box;
 }
 
+/* Dark mode — default theme */
 :root {
-  /* Backgrounds */
   --bg-primary: #0f111a;
   --bg-card: #191d2b;
 
-  /* Text */
   --text-primary: #f5f7ff;
   --text-secondary: #a5adc5;
 
-  /* Accent */
   --primary: #8b5cf6;
   --primary-hover: #7c3aed;
 
-  /* Status */
   --success: #34d399;
   --border: #2b3042;
+  --gap: 24px;
+}
 
+/* Light mode */
+body.light-mode {
+  --bg-primary: #f5f7ff;
+  --bg-card: #ffffff;
+
+  --text-primary: #18233d;
+  --text-secondary: #7180a2;
+
+  --primary: #8b5cf6;
+  --primary-hover: #7c3aed;
+
+  --success: #059669;
+  --border: #e0e6f2;
   --gap: 24px;
 }
 

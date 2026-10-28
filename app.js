@@ -14,6 +14,7 @@ const divisionMini = document.querySelector(".divisionMini");
 const Clear = document.querySelector(".Clear");
 
 const pauseBtn = document.querySelector("#pauseBtn");
+const themeToggle = document.querySelector(".change");
 
 let area;
 let timing = null;
@@ -37,6 +38,19 @@ let months = [
   "NOV",
   "DEC",
 ];
+
+themeToggle.addEventListener("click", function () {
+  document.body.classList.toggle("light-mode");
+
+  const isLight = document.body.classList.contains("light-mode");
+
+  localStorage.setItem("theme", isLight ? "light" : "dark");
+});
+const savedTheme = localStorage.getItem("theme");
+
+if (savedTheme === "light") {
+  document.body.classList.add("light-mode");
+}
 
 // Preset buttons
 box.forEach((b) => {
