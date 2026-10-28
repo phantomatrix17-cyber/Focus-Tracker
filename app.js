@@ -11,6 +11,7 @@ const display = document.querySelector(".display");
 const percentage = document.querySelector(".percentage");
 const division = document.querySelector(".division");
 const divisionMini = document.querySelector(".divisionMini");
+const Clear = document.querySelector(".Clear");
 
 const pauseBtn = document.querySelector("#pauseBtn");
 
@@ -19,8 +20,8 @@ let timing = null;
 let timeLeft = 0;
 let initialTime = 0;
 let endTime = null;
-let container = [];
-let nextId = 1;
+let container = JSON.parse(localStorage.getItem("focusKey")) || [];
+let nextId = localStorage.getItem("focusId") || 1;
 
 let months = [
   " JAN",
@@ -189,6 +190,7 @@ function updateTimer() {
     timing = null;
     endTime = null;
     pushing();
+    saveData();
   }
 }
 
@@ -298,3 +300,18 @@ function updateDisplay() {
   item = item.join("");
   display.innerHTML = item;
 }
+
+function saveData() {
+  localStorage.setItem("focusKey", JSON.stringify(container));
+  localStorage.setItem("focusId", nextId);
+}
+
+saveData();
+
+Clear.addEventListener("click", function () {
+  localStorage.clear("focusKey");
+  localStorage.clear("focusId");
+  display.innerHTML = "";
+  container = [];
+  nextId = 1;
+});
