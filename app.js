@@ -15,6 +15,8 @@ let timing = null;
 let timeLeft = 0;
 let initialTime = 0;
 let endTime = null;
+let container = [];
+let nextId = 1;
 
 // Preset buttons
 box.forEach((b) => {
@@ -43,6 +45,7 @@ startBtn.addEventListener("click", function () {
   area = duration;
   initialTime = area * 60;
   timeLeft = initialTime;
+  pushing();
 
   input.value = "";
   refresh();
@@ -225,3 +228,19 @@ function reset() {
     <p>Resume</p>
   `;
 }
+
+function pushing() {
+  if (!area || area <= 0) {
+    return;
+  }
+
+  container.push({
+    id: nextId++,
+    task: area + "min",
+    data: Date.now(),
+  });
+
+  console.log(container);
+}
+
+pushing();
