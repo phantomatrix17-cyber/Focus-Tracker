@@ -307,9 +307,10 @@ h4 {
 }
 
 /* TIMER SECTION */
+
 .timer {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
   gap: 2rem;
@@ -319,7 +320,7 @@ h4 {
 
 /* CIRCULAR PROGRESS RING */
 .timer-circle {
-  width: 280px;
+  width: 250px;
   aspect-ratio: 1;
   border-radius: 50%;
 
@@ -365,6 +366,7 @@ h4 {
   justify-content: center;
   gap: 0.8rem;
   flex-wrap: wrap;
+  flex-direction: column;
 }
 
 .timer-controls button {
@@ -382,10 +384,6 @@ h4 {
 }
 
 .timer-controls button:nth-child(odd) {
-  border-radius: 100%;
-  width: 50px;
-  height: 50px;
-  padding: 0;
   background: var(--bg-card);
 }
 
@@ -463,6 +461,8 @@ h4 {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 1rem;
 }
 
 .clearSection small {
@@ -470,11 +470,6 @@ h4 {
 }
 
 .display .card {
-  /*   display: grid;
-  grid-template-columns: 1fr 3fr 1fr;
-  place-items: center;
-  align-items: center; */
-
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -505,8 +500,36 @@ h4 {
   flex-direction: column;
   width: 100%;
   gap: 0.5rem;
-  height: 105px;
+  height: 240px;
   overflow: auto;
+}
+
+.clearSection div:first-child svg {
+  width: 30px;
+  fill: var(--text-primary);
+}
+
+.clearSection div {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.clearSection div:nth-child(2) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  border: 1px solid var(--border);
+  padding: 0.5rem 0.75rem;
+  border-radius: 20px;
+  flex-shrink: 0;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.clearSection div:nth-child(2) svg {
+  fill: var(--primary-hover);
 }
 
 /* Custom scrollbar for session history */
