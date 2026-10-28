@@ -306,8 +306,6 @@ function saveData() {
   localStorage.setItem("focusId", nextId);
 }
 
-saveData();
-
 Clear.addEventListener("click", function () {
   localStorage.clear("focusKey");
   localStorage.clear("focusId");
@@ -315,3 +313,5 @@ Clear.addEventListener("click", function () {
   container = [];
   nextId = 1;
 });
+
+updateDisplay();
