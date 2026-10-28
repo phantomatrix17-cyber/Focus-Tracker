@@ -19,6 +19,21 @@ let endTime = null;
 let container = [];
 let nextId = 1;
 
+let months = [
+  " JAN",
+  "FEB",
+  "MAR",
+  "APR",
+  "MAY",
+  "JUN",
+  "JUL",
+  "AUG",
+  "SEP",
+  "OCT",
+  "NOV",
+  "DEC",
+];
+
 // Preset buttons
 box.forEach((b) => {
   b.addEventListener("click", function () {
@@ -46,7 +61,6 @@ startBtn.addEventListener("click", function () {
   area = duration;
   initialTime = area * 60;
   timeLeft = initialTime;
-  pushing();
 
   input.value = "";
   refresh();
@@ -165,6 +179,7 @@ function updateTimer() {
     clearInterval(timing);
     timing = null;
     endTime = null;
+    pushing();
   }
 }
 
@@ -235,10 +250,16 @@ function pushing() {
     return;
   }
 
+  let dateData = new Date();
+  let day = dateData.getDate();
+  let month = dateData.getMonth();
+  const hours = String(dateData.getHours()).padStart(2, "0");
+  const minutes = String(dateData.getMinutes()).padStart(2, "0");
+
   container.push({
     id: nextId++,
-    task: new Date(),
-    data: Newnow,
+    task: `${area} min`,
+    data: `${day} ${months[month]}  ·  ${hours}:${minutes}`,
   });
   updateDisplay();
 }
