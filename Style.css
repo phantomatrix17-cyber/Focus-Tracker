@@ -10,7 +10,9 @@
   --bg-card: #191d2b;
 
   --text-primary: #f5f7ff;
+  --text-primary2: #f5f7ff;
   --text-secondary: #a5adc5;
+  --text-secondary2: #a5adc5;
 
   --primary: #8b5cf6;
   --primary-hover: #7c3aed;
@@ -26,7 +28,9 @@ body.light-mode {
   --bg-card: #ffffff;
 
   --text-primary: #18233d;
+  --text-primary2: #ffffff;
   --text-secondary: #7180a2;
+  --text-secondary2: #ffffff;
 
   --primary: #8b5cf6;
   --primary-hover: #7c3aed;
@@ -134,10 +138,20 @@ body {
 }
 
 .color-change div {
-  background-color: var(--text-primary);
-  width: 15px;
-  height: 15px;
+  background-color: transparent;
+  border: 1px solid var(--border);
+  width: 25px;
+  height: 25px;
   border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 38px;
+  transition: all 0.2s ease;
+}
+
+.color-change div.active {
+  left: 5px;
 }
 
 .color-change {
@@ -148,10 +162,11 @@ body {
   border: 1px solid var(--border);
   padding: 0.3rem;
   border-radius: 20px;
+  position: relative;
 }
 
 .color-change svg {
-  transform: scale(0.9);
+  transform: scale(0.7);
 }
 
 /* SETUP */
@@ -201,10 +216,15 @@ body {
   color: var(--text-primary);
 }
 
+.input input::placeholder {
+  color: var(--text-secondary);
+  opacity: 1;
+}
+
 .startBtn svg {
   width: 22px;
   height: 22px;
-  fill: var(--text-primary);
+  fill: var(--text-primary2);
 }
 
 .startBtn {
@@ -248,6 +268,10 @@ body {
 
 .box:hover {
   background-color: var(--primary-hover);
+  color: var(--text-secondary2);
+}
+.box:hover.box p {
+  color: var(--text-secondary2);
 }
 
 .options {
@@ -406,6 +430,7 @@ h4 {
 
 .timer-controls button:hover {
   background: var(--primary-hover);
+  color: var(--text-secondary2);
 }
 
 .timer-quote {
@@ -567,4 +592,52 @@ h4 {
 
 .display::-webkit-scrollbar-thumb:hover {
   background: var(--primary-hover);
+}
+
+/* LIGHT MODE — Start button */
+body.light-mode .startBtn {
+  color: #ffffff;
+  background-color: var(--primary);
+}
+
+body.light-mode .startBtn p,
+body.light-mode .startBtn svg {
+  color: #ffffff;
+  fill: #ffffff;
+}
+
+/* LIGHT MODE — Timer controls */
+body.light-mode .timer-controls button {
+  color: var(--text-primary);
+}
+
+/* Reset and Stop: light background, dark text */
+body.light-mode .timer-controls button:nth-child(odd) {
+  background-color: #ffffff;
+  color: var(--text-primary);
+}
+
+body.light-mode .timer-controls button:nth-child(odd) svg {
+  fill: var(--text-primary);
+}
+
+/* Pause: purple background, white text */
+body.light-mode .timer-controls button:nth-child(even) {
+  background-color: var(--primary);
+  color: #ffffff;
+}
+
+body.light-mode .timer-controls button:nth-child(even) svg {
+  fill: #ffffff;
+}
+
+/* Hover effect */
+body.light-mode .timer-controls button:hover,
+body.light-mode .startBtn:hover {
+  background-color: var(--primary-hover);
+  color: #ffffff;
+}
+
+body.light-mode .timer-controls button:hover svg {
+  fill: #ffffff;
 }
