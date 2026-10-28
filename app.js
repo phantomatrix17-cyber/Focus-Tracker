@@ -8,6 +8,9 @@ const timerCircle = document.querySelector(".timer-circle");
 const loadingProgress = document.querySelector(".loadingProgress");
 const load = document.querySelector(".load");
 const display = document.querySelector(".display");
+const percentage = document.querySelector(".percentage");
+const division = document.querySelector(".division");
+const divisionMini = document.querySelector(".divisionMini");
 
 const pauseBtn = document.querySelector("#pauseBtn");
 
@@ -111,6 +114,12 @@ function updateProgress() {
   loadingProgress.style.background = `conic-gradient(var(--primary) ${progress}%, var(--border) ${progress}% 100%)`;
 
   load.style.width = `${progress}%`;
+
+  percentage.textContent = `${Math.floor(progress)}%`;
+  const progressDivision = Math.min(4, Math.floor(progress / 25) + 1);
+
+  division.textContent = `${progressDivision}/4`;
+  divisionMini.textContent = progressDivision;
 }
 
 // Timer control buttons

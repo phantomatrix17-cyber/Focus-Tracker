@@ -505,4 +505,31 @@ h4 {
   flex-direction: column;
   width: 100%;
   gap: 0.5rem;
+  height: 105px;
+  overflow: auto;
+}
+
+/* Custom scrollbar for session history */
+.display {
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary) var(--bg-card);
+}
+
+/* Chrome, Edge, Safari */
+.display::-webkit-scrollbar {
+  width: 6px;
+}
+
+.display::-webkit-scrollbar-track {
+  background: var(--bg-card);
+  border-radius: 10px;
+}
+
+.display::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 10px;
+}
+
+.display::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-hover);
 }
