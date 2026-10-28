@@ -7,6 +7,7 @@ const timerControls = document.querySelector(".timer-controls");
 const timerCircle = document.querySelector(".timer-circle");
 const loadingProgress = document.querySelector(".loadingProgress");
 const load = document.querySelector(".load");
+const display = document.querySelector(".display");
 
 const pauseBtn = document.querySelector("#pauseBtn");
 
@@ -236,11 +237,34 @@ function pushing() {
 
   container.push({
     id: nextId++,
-    task: area + "min",
-    data: Date.now(),
+    task: new Date(),
+    data: Newnow,
   });
-
-  console.log(container);
+  updateDisplay();
 }
 
-pushing();
+function updateDisplay() {
+  let item = container.map((m) => {
+    return ` <div class="card" data-id="${m.id}">
+                <div>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+                    <!--!Font Awesome Free v7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
+                    <path
+                      d="M528 320C528 434.9 434.9 528 320 528C205.1 528 112 434.9 112 320C112 205.1 205.1 112 320 112C434.9 112 528 205.1 528 320zM64 320C64 461.4 178.6 576 320 576C461.4 576 576 461.4 576 320C576 178.6 461.4 64 320 64C178.6 64 64 178.6 64 320zM296 184L296 320C296 328 300 335.5 306.7 340L402.7 404C413.7 411.4 428.6 408.4 436 397.3C443.4 386.2 440.4 371.4 429.3 364L344 307.2L344 184C344 170.7 333.3 160 320 160C306.7 160 296 170.7 296 184z"
+                    />
+                  </svg>
+                  <p>${m.task}</p>
+                </div>
+                <small>${m.data}</small>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+                  <!--!Font Awesome Free v7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
+                  <path
+                    d="M530.8 134.1C545.1 144.5 548.3 164.5 537.9 178.8L281.9 530.8C276.4 538.4 267.9 543.1 258.5 543.9C249.1 544.7 240 541.2 233.4 534.6L105.4 406.6C92.9 394.1 92.9 373.8 105.4 361.3C117.9 348.8 138.2 348.8 150.7 361.3L252.2 462.8L486.2 141.1C496.6 126.8 516.6 123.6 530.9 134z"
+                  />
+                </svg>
+              </div>`;
+  });
+
+  item = item.join("");
+  display.innerHTML = item;
+}
