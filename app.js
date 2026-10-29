@@ -437,6 +437,15 @@ function pushing() {
 }
 
 function updateDisplay() {
+  const noSessions = document.querySelector(".noSessions");
+
+  if (container.length === 0) {
+    noSessions.classList.add("active");
+    display.innerHTML = "";
+    return;
+  }
+  noSessions.classList.remove("active");
+
   let item = container.map((m) => {
     return ` <div class="card" data-id="${m.id}">
                 <div>

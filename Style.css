@@ -540,7 +540,7 @@ h4 {
   flex-direction: column;
   width: 100%;
   gap: 0.5rem;
-  height: 240px;
+  height: 250px;
   overflow: auto;
 }
 
@@ -588,6 +588,54 @@ h4 {
 .card:hover.card div:last-child svg:last-child {
   display: block;
   fill: var(--primary);
+}
+
+.history {
+  position: relative;
+}
+
+.noSessions {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 0.1rem;
+  display: none;
+}
+
+.noSessions.active {
+  display: flex;
+}
+
+.noSessions svg:first-child {
+  width: 110px;
+  fill: var(--border);
+}
+
+.noSessions svg:last-child {
+  width: 45px;
+  fill: var(--primary);
+  position: absolute;
+  top: 60px;
+  left: 65px;
+}
+
+.noSessions h2 {
+  font-size: 1.2rem;
+}
+
+.noSessions p {
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  text-align: center;
+}
+
+.noSessions .images {
+  position: relative;
 }
 
 /* Custom scrollbar for session history */
@@ -661,5 +709,25 @@ body.light-mode .startBtn:hover {
 }
 
 body.light-mode .timer-controls button:hover svg {
+  fill: #ffffff;
+}
+
+/* Clear All button hover effect */
+.clearSection div:nth-child(2) {
+  transition: all 0.3s ease;
+}
+
+.clearSection div:nth-child(2):hover {
+  background-color: var(--primary-hover);
+  border-color: var(--primary-hover);
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
+.clearSection div:nth-child(2):hover small {
+  color: #ffffff;
+}
+
+.clearSection div:nth-child(2):hover svg {
   fill: #ffffff;
 }
