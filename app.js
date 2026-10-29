@@ -16,6 +16,7 @@ const Clear = document.querySelector(".Clear");
 const pauseBtn = document.querySelector("#pauseBtn");
 const themeToggle = document.querySelector(".change");
 const colorChange = document.querySelector(".color-change");
+const infinite = document.querySelector(".infinite");
 
 let area;
 let timing = null;
@@ -24,6 +25,9 @@ let initialTime = 0;
 let endTime = null;
 let container = JSON.parse(localStorage.getItem("focusKey")) || [];
 let nextId = localStorage.getItem("focusId") || 0;
+let startTime = null;
+let secondEach = 0;
+let newStartUp = null;
 
 let months = [
   " JAN",
@@ -54,15 +58,31 @@ if (savedTheme === "light") {
   document.body.classList.add("light-mode");
 }
 
-// Preset buttons
 box.forEach((b) => {
   b.addEventListener("click", function () {
     input.value = b.getAttribute("value");
   });
 });
 
-// Set the timer duration
+infinite.addEventListener("click", function () {
+  input.value = infinite.getAttribute("value");
+});
+
 startBtn.addEventListener("click", function () {
+  if (input.value === infinite.getAttribute("value")) {
+    newStartUp = input.value;
+
+    pauseBtn.innerHTML = `
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+      <path d="M187.2 100.9C174.8 94.1 159.8 94.4 147.6 101.6C135.4 108.8 128 121.9 128 136L128 504C128 518.1 135.5 531.2 147.6 538.4C159.7 545.6 174.8 545.9 187.2 539.1L523.2 355.1C536 348.1 544 334.6 544 320C544 305.4 536 291.9 523.2 284.9L187.2 100.9z"/>
+    </svg>
+    <p>Start</p>
+  `;
+    timerRefresh();
+    input.value = "";
+    return;
+  }
+
   const duration = Number(input.value);
 
   if (
@@ -97,6 +117,10 @@ startBtn.addEventListener("click", function () {
 function refresh() {
   time.textContent = calculation(timeLeft);
   updateProgress();
+}
+
+function timerRefresh() {
+  time.textContent = "00:00";
 }
 
 // Format seconds into a readable time
@@ -153,17 +177,93 @@ timerControls.addEventListener("click", function (e) {
   const stopBtn = e.target.closest("#stopBtn");
 
   if (resetBtn) {
+    if (newStartUp) {
+      resetTimer();
+      return;
+    }
     reset();
   } else if (clickedPauseBtn) {
+    if (newStartUp) {
+      if (timing === null) {
+        startTimer();
+      } else {
+        pauseTimer();
+      }
+      return;
+    }
+
     if (timing === null) {
       start();
     } else {
       pause();
     }
   } else if (stopBtn) {
+    if (newStartUp) {
+      stopTimer();
+      return;
+    }
     stop();
   }
 });
+
+function startTimer() {
+  if (timing !== null) {
+    return;
+  }
+
+  startTime = Date.now() - secondEach * 1000;
+  pauseBtn.innerHTML = `
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+      <path d="M187.2 100.9C174.8 94.1 159.8 94.4 147.6 101.6C135.4 108.8 128 121.9 128 136L128 504C128 518.1 135.5 531.2 147.6 538.4C159.7 545.6 174.8 545.9 187.2 539.1L523.2 355.1C536 348.1 544 334.6 544 320C544 305.4 536 291.9 523.2 284.9L187.2 100.9z"/>
+    </svg>
+    <p>Pause</p>
+  `;
+
+  timing = setInterval(() => {
+    secondEach = Math.floor((Date.now() - startTime) / 1000);
+    time.textContent = calculation(secondEach);
+  }, 250);
+}
+
+function pauseTimer() {
+  clearInterval(timing);
+  timing = null;
+  pauseBtn.innerHTML = `
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+      <path d="M176 96C149.5 96 128 117.5 128 144L128 496C128 522.5 149.5 544 176 544L240 544C266.5 544 288 522.5 288 496L288 144C288 117.5 266.5 96 240 96L176 96zM400 96C373.5 96 352 117.5 352 144L352 496C352 522.5 373.5 544 400 544L464 544C490.5 544 512 522.5 512 496L512 144C512 117.5 490.5 96 464 96L400 96z"/>
+    </svg>
+    <p>Resume</p>
+  `;
+}
+
+function resetTimer() {
+  clearInterval(timing);
+  timing = null;
+  secondEach = 0;
+  time.textContent = `00:00`;
+  pauseBtn.innerHTML = `
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+      <path d="M187.2 100.9C174.8 94.1 159.8 94.4 147.6 101.6C135.4 108.8 128 121.9 128 136L128 504C128 518.1 135.5 531.2 147.6 538.4C159.7 545.6 174.8 545.9 187.2 539.1L523.2 355.1C536 348.1 544 334.6 544 320C544 305.4 536 291.9 523.2 284.9L187.2 100.9z"/>
+    </svg>
+    <p>Start</p>
+  `;
+}
+
+function stopTimer() {
+  clearInterval(timing);
+  timing = null;
+  secondEach = 0;
+  time.textContent = `00:00`;
+  pushing();
+  pauseBtn.innerHTML = `
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+      <path d="M187.2 100.9C174.8 94.1 159.8 94.4 147.6 101.6C135.4 108.8 128 121.9 128 136L128 504C128 518.1 135.5 531.2 147.6 538.4C159.7 545.6 174.8 545.9 187.2 539.1L523.2 355.1C536 348.1 544 334.6 544 320C544 305.4 536 291.9 523.2 284.9L187.2 100.9z"/>
+    </svg>
+    <p>Start</p>
+  `;
+
+  newStartUp = null;
+}
 
 // Start or resume the countdown
 function start() {
@@ -276,6 +376,23 @@ function reset() {
 }
 
 function pushing() {
+  if (newStartUp) {
+    let dateData = new Date();
+    let day = dateData.getDate();
+    let month = dateData.getMonth();
+    let hours = String(dateData.getHours()).padStart(2, "0");
+    let minutes = String(dateData.getMinutes()).padStart(2, "0");
+
+    container.push({
+      id: nextId++,
+      task: `${Math.floor(secondEach / 60)} min`,
+      data: `${day} ${months[month]}  ·  ${hours}:${minutes}`,
+    });
+
+    updateDisplay();
+    return;
+  }
+
   if (!area || area <= 0) {
     return;
   }
@@ -283,8 +400,8 @@ function pushing() {
   let dateData = new Date();
   let day = dateData.getDate();
   let month = dateData.getMonth();
-  const hours = String(dateData.getHours()).padStart(2, "0");
-  const minutes = String(dateData.getMinutes()).padStart(2, "0");
+  let hours = String(dateData.getHours()).padStart(2, "0");
+  let minutes = String(dateData.getMinutes()).padStart(2, "0");
 
   container.push({
     id: nextId++,

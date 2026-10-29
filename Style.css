@@ -246,7 +246,7 @@ body {
   justify-content: flex-start;
   flex-direction: column;
   width: 100%;
-  gap: 1rem;
+  gap: 0.5rem;
 }
 
 .optionsTab p {
@@ -254,9 +254,10 @@ body {
   color: var(--text-secondary);
 }
 
-.box {
+.box,
+.infinite {
   border: 1px solid var(--border);
-  padding: 0.8rem;
+  padding: 0.5rem 0.8rem;
   border-radius: 20px;
   display: flex;
   align-items: center;
@@ -266,18 +267,20 @@ body {
   cursor: pointer;
 }
 
-.box:hover {
+.box:hover,
+.infinite:hover {
   background-color: var(--primary-hover);
   color: var(--text-secondary2);
 }
-.box:hover.box p {
+.box:hover.box p,
+.infinite:hover.infinite p {
   color: var(--text-secondary2);
 }
 
 .options {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 1rem;
+  gap: 0.5rem;
   width: 100%;
 }
 
