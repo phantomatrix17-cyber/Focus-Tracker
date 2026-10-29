@@ -567,12 +567,31 @@ h4 {
 
 .clearSection div:nth-child(2) svg {
   fill: var(--primary-hover);
+  width: 15px;
+}
+
+.card div:last-child svg:first-child {
+  fill: var(--success);
+}
+
+.card:hover.card div:last-child svg:first-child {
+  display: none;
+}
+
+.card div:last-child svg:last-child {
+  display: none;
+}
+
+.card:hover.card div:last-child svg:last-child {
+  display: block;
+  fill: var(--primary);
 }
 
 /* Custom scrollbar for session history */
 .display {
   scrollbar-width: thin;
   scrollbar-color: var(--primary) var(--bg-card);
+  overflow-x: hidden;
 }
 
 /* Chrome, Edge, Safari */
